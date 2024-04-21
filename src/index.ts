@@ -1,4 +1,4 @@
-import { Context, Schema, Session } from 'koishi';
+import { Context, Schema } from 'koishi';
 import { } from 'koishi-plugin-word-core';
 import { } from 'koishi-plugin-adapter-iirose';
 
@@ -18,12 +18,16 @@ export function apply(ctx: Context) {
     if (session.userId == session.bot.user.id) { return; }
 
     session.content = '加入房间公屏';
-    const publicMsg = await ctx.word.driver.start(session);
-    session.content = '加入房间私聊';
-    const privateMsg = await ctx.word.driver.start(session);
+    await ctx.word.driver.start(session, str => {
+      if (!str) { return; }
+      session.bot.sendMessage('public:', str);
+    });
 
-    if (publicMsg) { session.bot.sendMessage('public:', publicMsg); }
-    if (privateMsg) { session.bot.sendMessage(`private:${session.userId}`, privateMsg); }
+    session.content = '加入房间私聊';
+    await ctx.word.driver.start(session, str => {
+      if (!str) { return; }
+      session.bot.sendMessage(`private:${session.userId}`, str);
+    });
   });
 
   // 离开房间事件
@@ -32,11 +36,15 @@ export function apply(ctx: Context) {
     if (session.userId == session.bot.user.id) { return; }
 
     session.content = '退出房间公屏';
-    const publicMsg = await ctx.word.driver.start(session);
-    session.content = '退出房间私聊';
-    const privateMsg = await ctx.word.driver.start(session);
+    await ctx.word.driver.start(session, str => {
+      if (!str) { return; }
+      session.bot.sendMessage('public:', str);
+    });
 
-    if (publicMsg) { session.bot.sendMessage('public:', publicMsg); }
-    if (privateMsg) { session.bot.sendMessage(`private:${session.userId}`, privateMsg); }
+    session.content = '退出房间私聊';
+    await ctx.word.driver.start(session, str => {
+      if (!str) { return; }
+      session.bot.sendMessage(`private:${session.userId}`, str);
+    });
   });
 }
