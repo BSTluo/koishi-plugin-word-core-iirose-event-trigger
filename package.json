@@ -17,11 +17,11 @@
   "peerDependencies": {
     "koishi": "^4.17.1",
     "koishi-plugin-adapter-iirose": "^0.3.33",
-    "koishi-plugin-word-core": "^1.0.0-alpha.3"
+    "koishi-plugin-word-core": "^1.0.0-alpha.4"
   },
   "devDependencies": {
     "koishi-plugin-adapter-iirose": "^0.3.33",
-    "koishi-plugin-word-core": "1.0.0-alpha.3"
+    "koishi-plugin-word-core": "1.0.0-alpha.4"
   },
   "koishi": {
     "service": {
