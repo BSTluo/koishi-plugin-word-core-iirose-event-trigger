@@ -15,13 +15,13 @@
     "plugin"
   ],
   "peerDependencies": {
-    "koishi": "^4.17.1",
+    "koishi": "^4.17.8",
     "koishi-plugin-adapter-iirose": "^0.3.40",
-    "koishi-plugin-word-core": "^1.0.0-alpha.14"
+    "koishi-plugin-word-core": "^1.0.0-alpha.15"
   },
   "devDependencies": {
     "koishi-plugin-adapter-iirose": "^0.3.40",
-    "koishi-plugin-word-core": "1.0.0-alpha.14"
+    "koishi-plugin-word-core": "1.0.0-alpha.15"
   },
   "koishi": {
     "service": {
