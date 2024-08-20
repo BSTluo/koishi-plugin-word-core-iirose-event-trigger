@@ -14,10 +14,10 @@ export function apply(ctx: Context)
   if (!ctx.word) { return; }
 
   // 进入房间事件
-  ctx.on('iirose/joinRoom', async session =>
+  ctx.on('iirose/joinRoom', async (session, data) =>
   {
     if (!session.content) { return; }
-    if (session.userId == session.bot.user.id) { return; }
+    if (session.userId == session.bot.user.id || data.uid == session.bot.user.id) { return; }
 
     session.content = '加入房间公屏';
     await ctx.word.driver.start(session, str =>
@@ -66,10 +66,10 @@ export function apply(ctx: Context)
   });
 
   // 离开房间事件
-  ctx.on('iirose/leaveRoom', async session =>
+  ctx.on('iirose/leaveRoom', async (session, data) =>
   {
     if (!session.content) { return; }
-    if (session.userId == session.bot.user.id) { return; }
+    if (session.userId == session.bot.user.id || data.uid == session.bot.user.id) { return; }
 
     session.content = '退出房间公屏';
     await ctx.word.driver.start(session, str =>
