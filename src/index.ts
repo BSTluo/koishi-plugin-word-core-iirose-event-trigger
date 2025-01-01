@@ -1,4 +1,4 @@
-import { Context, Schema } from 'koishi';
+import { clone, Context, Schema } from 'koishi';
 import { } from 'koishi-plugin-word-core';
 import { } from 'koishi-plugin-adapter-iirose';
 
@@ -19,48 +19,52 @@ export function apply(ctx: Context)
     if (!session.content) { return; }
     if (session.userId == session.bot.user.id || data.uid == session.bot.user.id) { return; }
 
-    session.content = '加入房间公屏';
-    await ctx.word.driver.start(session, str =>
+    const forkSession = session.bot.session(clone(session.event));
+
+    forkSession.content = session.content;
+
+    forkSession.content = '加入房间公屏';
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage('public:', str);
+      forkSession.bot.sendMessage('public:', str);
     });
 
-    session.content = '加入房间私聊';
-    await ctx.word.driver.start(session, str =>
+    forkSession.content = '加入房间私聊';
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage(`private:${session.userId}`, str);
+      forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
     });
 
-    session.content = `${session.userId}加入房间公屏`;
-    await ctx.word.driver.start(session, str =>
+    forkSession.content = `${forkSession.userId}加入房间公屏`;
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage('public:', str);
+      forkSession.bot.sendMessage('public:', str);
     });
 
-    session.content = `${session.userId}加入房间私聊`;
-    await ctx.word.driver.start(session, str =>
+    forkSession.content = `${forkSession.userId}加入房间私聊`;
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage(`private:${session.userId}`, str);
+      forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
     });
 
-    if (session.userId.startsWith('X'))
+    if (forkSession.userId.startsWith('X'))
     {
-      session.content = '游客加入房间公屏';
-      await ctx.word.driver.start(session, str =>
+      forkSession.content = '游客加入房间公屏';
+      await ctx.word.driver.start(forkSession, str =>
       {
         if (!str) { return; }
-        session.bot.sendMessage('public:', str);
+        forkSession.bot.sendMessage('public:', str);
       });
 
-      session.content = '游客加入房间私聊';
-      await ctx.word.driver.start(session, str =>
+      forkSession.content = '游客加入房间私聊';
+      await ctx.word.driver.start(forkSession, str =>
       {
         if (!str) { return; }
-        session.bot.sendMessage(`private:${session.userId}`, str);
+        forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
       });
     }
   });
@@ -71,49 +75,53 @@ export function apply(ctx: Context)
     if (!session.content) { return; }
     if (session.userId == session.bot.user.id || data.uid == session.bot.user.id) { return; }
 
-    session.content = '退出房间公屏';
-    await ctx.word.driver.start(session, str =>
+    const forkSession = session.bot.session(clone(session.event));
+
+    forkSession.content = session.content;
+
+    forkSession.content = '退出房间公屏';
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage('public:', str);
+      forkSession.bot.sendMessage('public:', str);
     });
 
-    session.content = '退出房间私聊';
-    await ctx.word.driver.start(session, str =>
+    forkSession.content = '退出房间私聊';
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage(`private:${session.userId}`, str);
+      forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
     });
 
-    session.content = `${session.userId}退出房间公屏`;
-    await ctx.word.driver.start(session, str =>
+    forkSession.content = `${forkSession.userId}退出房间公屏`;
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage('public:', str);
+      forkSession.bot.sendMessage('public:', str);
     });
 
-    session.content = `${session.userId}退出房间私聊`;
-    await ctx.word.driver.start(session, str =>
+    forkSession.content = `${forkSession.userId}退出房间私聊`;
+    await ctx.word.driver.start(forkSession, str =>
     {
       if (!str) { return; }
-      session.bot.sendMessage(`private:${session.userId}`, str);
+      forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
     });
 
 
-    if (session.userId.startsWith('X'))
+    if (forkSession.userId.startsWith('X'))
     {
-      session.content = '游客退出房间公屏';
-      await ctx.word.driver.start(session, str =>
+      forkSession.content = '游客退出房间公屏';
+      await ctx.word.driver.start(forkSession, str =>
       {
         if (!str) { return; }
-        session.bot.sendMessage('public:', str);
+        forkSession.bot.sendMessage('public:', str);
       });
 
-      session.content = '游客退出房间私聊';
-      await ctx.word.driver.start(session, str =>
+      forkSession.content = '游客退出房间私聊';
+      await ctx.word.driver.start(forkSession, str =>
       {
         if (!str) { return; }
-        session.bot.sendMessage(`private:${session.userId}`, str);
+        forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
       });
     }
   });
