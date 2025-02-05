@@ -19,9 +19,7 @@ export function apply(ctx: Context)
     if (!session.content) { return; }
     if (session.userId == session.bot.user.id || data.uid == session.bot.user.id) { return; }
 
-    const forkSession = session.bot.session(clone(session.event));
-
-    forkSession.content = session.content;
+    const forkSession = session;
 
     forkSession.content = '加入房间公屏';
     await ctx.word.driver.start(forkSession, str =>
@@ -75,9 +73,7 @@ export function apply(ctx: Context)
     if (!session.content) { return; }
     if (session.userId == session.bot.user.id || data.uid == session.bot.user.id) { return; }
 
-    const forkSession = session.bot.session(clone(session.event));
-
-    forkSession.content = session.content;
+    const forkSession = session;
 
     forkSession.content = '退出房间公屏';
     await ctx.word.driver.start(forkSession, str =>
