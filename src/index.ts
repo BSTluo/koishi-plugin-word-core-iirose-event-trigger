@@ -67,6 +67,61 @@ export function apply(ctx: Context)
     }
   });
 
+
+  // 移动房间事件
+  ctx.on('iirose/switchRoom', async (session, data) =>
+  {
+    if (!session.content) { return; }
+    if (session.userId == session.bot.user.id || data.uid == session.bot.user.id) { return; }
+
+    const forkSession = session;
+
+    forkSession.content = '移动房间公屏';
+    await ctx.word.driver.start(forkSession, str =>
+    {
+      if (!str) { return; }
+      forkSession.bot.sendMessage('public:', str);
+    });
+
+    forkSession.content = '移动房间私聊';
+    await ctx.word.driver.start(forkSession, str =>
+    {
+      if (!str) { return; }
+      forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
+    });
+
+    forkSession.content = `${forkSession.userId}移动房间公屏`;
+    await ctx.word.driver.start(forkSession, str =>
+    {
+      if (!str) { return; }
+      forkSession.bot.sendMessage('public:', str);
+    });
+
+    forkSession.content = `${forkSession.userId}移动房间私聊`;
+    await ctx.word.driver.start(forkSession, str =>
+    {
+      if (!str) { return; }
+      forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
+    });
+
+    if (forkSession.userId.startsWith('X'))
+    {
+      forkSession.content = '游客移动房间公屏';
+      await ctx.word.driver.start(forkSession, str =>
+      {
+        if (!str) { return; }
+        forkSession.bot.sendMessage('public:', str);
+      });
+
+      forkSession.content = '游客移动房间私聊';
+      await ctx.word.driver.start(forkSession, str =>
+      {
+        if (!str) { return; }
+        forkSession.bot.sendMessage(`private:${forkSession.userId}`, str);
+      });
+    }
+  });
+
   // 离开房间事件
   ctx.on('iirose/leaveRoom', async (session, data) =>
   {
@@ -121,4 +176,5 @@ export function apply(ctx: Context)
       });
     }
   });
+
 }

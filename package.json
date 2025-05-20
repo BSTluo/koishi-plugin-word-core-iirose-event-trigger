@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-word-core-iirose-event-trigger",
   "description": "适用于蔷薇花园的词库核心事件触发器",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -15,13 +15,13 @@
     "plugin"
   ],
   "peerDependencies": {
-    "koishi": "^4.17.9",
-    "koishi-plugin-adapter-iirose": "^0.3.47",
-    "koishi-plugin-word-core": "^1.0.0-alpha.28"
+    "koishi": "^4.18.7",
+    "koishi-plugin-adapter-iirose": "^0.3.67",
+    "koishi-plugin-word-core": "^1.0.22"
   },
   "devDependencies": {
-    "koishi-plugin-adapter-iirose": "^0.3.47",
-    "koishi-plugin-word-core": "1.0.0-alpha.28"
+    "koishi-plugin-adapter-iirose": "^0.3.67",
+    "koishi-plugin-word-core": "1.0.22"
   },
   "koishi": {
     "service": {
